@@ -1,0 +1,96 @@
+Guía de Instalación del Proyecto "Directorio de Organizaciones"
+Este documento proporciona las instrucciones necesarias para clonar, configurar y ejecutar la aplicación web "Directorio de Organizaciones" en un entorno de desarrollo local. Sigue esta guía paso a paso para asegurar una instalación correcta.
+
+1. Requisitos del Sistema
+Antes de comenzar, asegúrate de tener instalados los siguientes componentes en tu máquina. Puedes verificar su instalación ejecutando sus respectivas versiones en la terminal.
+
+PHP: Versión 8.1 o superior.
+
+Composer: El gestor de dependencias de PHP.
+
+Node.js y npm: Entorno de ejecución de JavaScript y su gestor de paquetes.
+
+Servidor Web Local: Como XAMPP, para manejar las peticiones y la base de datos.
+
+Visual Studio Code: O cualquier otro editor de código de tu preferencia.
+
+2. Clonación y Configuración del Proyecto
+Para obtener el código fuente del proyecto, clona el repositorio de GitHub en tu máquina local.
+
+Abre una terminal y navega al directorio donde deseas almacenar el proyecto.
+
+Clona el repositorio utilizando el siguiente comando:
+
+git clone [https://github.com/tu-usuario/nombre-del-repositorio.git](https://github.com/tu-usuario/nombre-del-repositorio.git)
+
+Navega al directorio del proyecto:
+
+cd nombre-del-repositorio
+
+Crea un archivo de configuración .env a partir del ejemplo:
+
+cp .env.example .env
+
+Genera una clave de aplicación para Laravel:
+
+php artisan key:generate
+
+3. Instalación de Dependencias
+Con el proyecto configurado, es necesario instalar todas las dependencias del lado del servidor (PHP) y del cliente (JavaScript).
+
+Instala las dependencias de PHP con Composer:
+
+composer install
+
+Instala las dependencias de JavaScript, incluyendo Tailwind CSS:
+
+npm install
+
+4. Configuración de Tailwind CSS
+Para que Tailwind CSS funcione correctamente, debes asegurarte de que sus archivos de configuración apunten a los archivos de vista de Laravel.
+
+Abre el archivo tailwind.config.js y verifica que el array content incluya las rutas a los archivos Blade:
+
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+      "./resources/**/*.blade.php",
+      "./resources/**/*.js",
+      "./resources/**/*.vue",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+
+Abre el archivo resources/css/app.css y confirma que las directivas de Tailwind estén presentes:
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+5. Compilación de Estilos y Ejecución del Servidor
+Finalmente, compila los activos de front-end y levanta el servidor de desarrollo de Laravel.
+
+En una terminal independiente, inicia el proceso de compilación de Vite. Este comando debe permanecer activo en segundo plano mientras desarrollas.
+
+npm run dev
+
+En la terminal principal, inicia el servidor de desarrollo de Laravel:
+
+php artisan serve
+
+Abre la URL http://127.0.0.1:8000 en tu navegador web. Si la instalación fue exitosa, verás la página de inicio del proyecto.
+
+6. Base de Datos (Opcional, pero recomendado)
+Para un funcionamiento completo del CRUD, es necesario configurar una base de datos.
+
+En el archivo .env, configura la conexión a tu base de datos (por ejemplo, con MySQL en XAMPP).
+
+Ejecuta las migraciones para crear las tablas necesarias:
+
+php artisan migrate
+
+7. Extensiones de Visual Studio Code
+Para una mejor experiencia de desarrollo, se recomienda instalar la extensión "Tailwind CSS IntelliSense" desde el marketplace de VS Code.
